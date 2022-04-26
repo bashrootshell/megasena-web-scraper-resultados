@@ -45,6 +45,7 @@ except exceptions.HTTPError as erro:
 
 with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
 
+    arquivo_com_resultados.truncate(0)
     for resultado in list(saida_colunas):
         dez1 = int(resultado[17:19])
         dez2 = int(resultado[20:22])
@@ -61,10 +62,10 @@ with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
 print('--- As 10 dezenas mais (+) sorteadas na MegaSena até hoje ---\n')
 for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1),\
     reverse=True)[:10]:
-    print(f'{vezes:10} vezes > dezena: {dezena:10}')
-
-print('')
+    print(f'{vezes:10} vezes > dezena: {dezena:10}'
+          f'\r')
 
 print('--- As 10 dezenas menos (-) sorteadas na MegaSena até hoje ---\n')
 for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1))[:10]:
-    print(f'{vezes:10} vezes > dezena: {dezena:10}')
+    print(f'{vezes:10} vezes > dezena: {dezena:10}'
+          f'\r')
