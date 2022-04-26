@@ -2,6 +2,7 @@
 
 from requests import get, exceptions
 from bs4 import BeautifulSoup as sp
+from operator import itemgetter
 
 """
     Executa o parsing de todos os resultados
@@ -27,8 +28,6 @@ mega_dezenas = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0,
                 '44': 0, '45': 0, '46': 0, '47': 0, '48': 0, '49': 0, '50': 0,
                 '51': 0, '52': 0, '53': 0, '54': 0, '55': 0, '56': 0, '57': 0,
                 '58': 0, '59': 0, '60': 0}
-
-mega_dezenas_ordenado = {}
 
 try:
 
@@ -59,17 +58,13 @@ with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
             if dezena in mega_dezenas:
                 mega_dezenas[dezena] += 1
 
-for valor_ordenado in sorted(mega_dezenas.values()):
-    for dezena, vezes in mega_dezenas.items():
-        if valor_ordenado == vezes:
-            mega_dezenas_ordenado[dezena] = valor_ordenado
-
 print('--- As 10 dezenas mais (+) sorteadas na MegaSena até hoje ---\n')
-for dezena, vezes in list(reversed(mega_dezenas_ordenado.items()))[:10]:
+for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1),\
+    reverse=True)[:10]:
     print(f'{vezes:10} vezes > dezena: {dezena:10}')
 
-print('\n')
+print('')
 
 print('--- As 10 dezenas menos (-) sorteadas na MegaSena até hoje ---\n')
-for dezena, vezes in list(mega_dezenas_ordenado.items())[:10]:
+for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1))[:10]:
     print(f'{vezes:10} vezes > dezena: {dezena:10}')
