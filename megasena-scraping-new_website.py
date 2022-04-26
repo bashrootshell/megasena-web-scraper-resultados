@@ -46,15 +46,18 @@ try:
 except exceptions.HTTPError as erro:
     exit(f'--- Erro {erro} na conexao HTTP com o site ---')
 
-for resultado in list(saida_colunas):
-    dez1 = int(resultado[17:19])
-    dez2 = int(resultado[20:22])
-    dez3 = int(resultado[23:25])
-    dez4 = int(resultado[26:28])
-    dez5 = int(resultado[29:31])
-    dez6 = int(resultado[32:34])
-    dezenas = f'{dez1},{dez2},{dez3},{dez4},{dez5},{dez6}'
-    lista_final.append(dezenas)
+with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
+
+    for resultado in list(saida_colunas):
+        dez1 = int(resultado[17:19])
+        dez2 = int(resultado[20:22])
+        dez3 = int(resultado[23:25])
+        dez4 = int(resultado[26:28])
+        dez5 = int(resultado[29:31])
+        dez6 = int(resultado[32:34])
+        dezenas = f'{dez1},{dez2},{dez3},{dez4},{dez5},{dez6}'
+        print(dezenas, file=arquivo_com_resultados)
+        lista_final.append(dezenas)
 
 for linhas in lista_final:
     for dezena in linhas.split(','):
@@ -68,15 +71,10 @@ for valor_ordenado in sorted(mega_dezenas.values()):
 
 print('--- As 10 dezenas mais (+) sorteadas na MegaSena até hoje ---\n')
 for dezena, vezes in list(reversed(mega_dezenas_ordenado.items()))[:10]:
-    print(f'{vezes} vezes > dezena: {dezena}')
+    print(f'{vezes:10} vezes > dezena: {dezena:10}')
 
 print('\n')
 
 print('--- As 10 dezenas menos (-) sorteadas na MegaSena até hoje ---\n')
 for dezena, vezes in list(mega_dezenas_ordenado.items())[:10]:
-    print(f'{vezes} vezes > dezena: {dezena}')
-
-with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
-    arquivo_com_resultados.truncate(0)
-    for resultados in lista_final:
-        print(resultados, file=arquivo_com_resultados)
+    print(f'{vezes:10} vezes > dezena: {dezena:10}')
