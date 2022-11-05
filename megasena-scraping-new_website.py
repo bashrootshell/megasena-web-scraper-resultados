@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
+from operator import itemgetter
 from requests import get, exceptions
 from bs4 import BeautifulSoup as sp
-from operator import itemgetter
+
 
 """
     Executa o parsing de todos os resultados
@@ -60,8 +61,8 @@ with open('todos_os_resultados.csv', 'w') as arquivo_com_resultados:
                 mega_dezenas[dezena] += 1
 
 print('--- As 10 dezenas mais (+) sorteadas na MegaSena até hoje ---\n')
-for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1),\
-    reverse=True)[:10]:
+for dezena, vezes in sorted(mega_dezenas.items(), key=itemgetter(1),
+                            reverse=True)[:10]:
     print(f'{vezes:10} vezes > dezena: {dezena:10}'
           f'\r')
 
